@@ -8,6 +8,18 @@ provider:
   memorySize: 256
   timeout: 30
   deploymentBucket: dasniko.serverless.deployments.${self:provider.region}
+#  environment:
+#    DYNAMODB_TABLE: ${self:service}
+#  iamRoleStatements:
+#    - Effect: Allow
+#      Action:
+#        - dynamodb:Query
+#        - dynamodb:Scan
+#        - dynamodb:GetItem
+#        - dynamodb:PutItem
+#        - dynamodb:UpdateItem
+#        - dynamodb:DeleteItem
+#
 
 package:
   artifact: target/jug-demo.jar
@@ -21,3 +33,27 @@ functions:
       - http:
           path: hello
           method: post
+
+#resources:
+#  Resources:
+#    DynamoDbTable:
+#      Type: 'AWS::DynamoDB::Table'
+#      DeletionPolicy: Retain
+#      Properties:
+#        AttributeDefinitions:
+#          -
+#            AttributeName: id
+#            AttributeType: S
+#        KeySchema:
+#          -
+#            AttributeName: id
+#            KeyType: HASH
+#        ProvisionedThroughput:
+#          ReadCapacityUnits: 5
+#          WriteCapacityUnits: 2
+#        TableName: ${self:provider.environment.DYNAMODB_TABLE}
+#        TimeToLiveSpecification:
+#          AttributeName: ttl
+#          Enabled: true
+#        SSESpecification:
+#          SSEEnabled: true
