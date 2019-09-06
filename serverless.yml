@@ -15,3 +15,9 @@ package:
 functions:
   plain:
     handler: dasniko.serverless.jug.PlainFunction::greet
+  hello:
+    handler: dasniko.serverless.jug.HelloHandler
+    events:
+      - http:
+          path: hello
+          method: post
